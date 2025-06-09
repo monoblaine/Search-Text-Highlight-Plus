@@ -102,7 +102,7 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12.0, vertical: 16.0),
                       child: TextField(
-                        // readOnly: true,
+                        readOnly: true,
                         controller: _highlightTextController,
                         maxLines: null,
                         decoration: null,
