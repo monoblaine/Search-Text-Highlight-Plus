@@ -105,11 +105,7 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
                         // readOnly: true,
                         controller: _highlightTextController,
                         maxLines: null,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                        ),
+                        decoration: null,
                         onChanged: (value) {
                           _onSearchChanged(_searchController.text.trim());
                         },
