@@ -46,11 +46,9 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
       highlightTextBackgroundColor: Colors.yellow,
       selectedHighlightedTextStyle: const TextStyle(
         color: Colors.white,
-        fontSize: 19,
       ),
       highlightedTextStyle: const TextStyle(
         color: Colors.black,
-        fontSize: 19,
       ),
     );
   }
@@ -113,7 +111,6 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
                             borderSide: BorderSide(color: Colors.grey),
                           ),
                         ),
-                        style: const TextStyle(fontSize: 20),
                         onChanged: (value) {
                           _onSearchChanged(_searchController.text.trim());
                         },
