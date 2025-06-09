@@ -69,7 +69,8 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
     if (_debounceTimer?.isActive ?? false) {
       _debounceTimer?.cancel();
     }
-    _debounceTimer = Timer(const Duration(milliseconds: 0), () { // increase the debounce timer according to your need.
+    _debounceTimer = Timer(const Duration(milliseconds: 0), () {
+      // increase the debounce timer according to your need.
       _highlightTextController.highlightSearchTerm(query);
     });
   }
@@ -146,9 +147,6 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
     );
   }
 }
-
-
-
 
 const englishText = '''
   In a small village, there was a small house with a small garden. The small children loved to play with their small toys in the small backyard. Every small detail of their small world brought them immense joy. The small moments they shared were forever cherished in their small hearts. In a small village, there was a small house with a small garden. The small children loved to play with their small toys in the small backyard. Every small detail of their small world brought them immense joy. The small moments they shared were forever cherished in their small hearts. In a small village, there was a small house with a small garden. The small children loved to play with their small toys in the small backyard. Every small detail of their small world brought them immense joy. The small moments they shared were forever cherished in their small hearts. In a small village, there was a small house with a small garden. The small children loved to play with their small toys in the small backyard. Every small detail of their small world brought them immense joy. The small moments they shared were forever cherished in their small hearts.
