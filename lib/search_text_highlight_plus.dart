@@ -67,6 +67,13 @@ class HighlightTextController extends TextEditingController {
     if (_currentIndex == -1 && hasMatches) {
       _currentIndex = 0;
       _scrollToCurrent();
+    } else if (_currentIndex >= _highlightsNotifier.value.length) {
+      if (hasMatches) {
+        _currentIndex = 0;
+        _scrollToCurrent();
+      } else {
+        _currentIndex = -1;
+      }
     }
   }
 
