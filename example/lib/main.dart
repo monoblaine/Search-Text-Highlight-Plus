@@ -87,9 +87,8 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
                   labelText: 'Enter search term',
                   border: OutlineInputBorder(),
                 ),
-                onChanged: (value) {
-                  _onSearchChanged(value); // Use the debounce method here
-                },
+                // Use the debounce method here
+                onChanged: _onSearchChanged,
               ),
             ),
             Expanded(
