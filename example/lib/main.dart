@@ -42,7 +42,7 @@ class _HighlightTextEditorState extends State<HighlightTextEditor> {
     _highlightTextController = HighlightTextController(
       text: englishText.trim(),
       scrollController: _scrollController,
-      selectedTextBackgroundColor: Colors.redAccent,
+      selectedTextBackgroundColor: const Color(0xffed1c24),
       selectedHighlightedTextStyle: const TextStyle(
         color: Colors.white,
       ),
