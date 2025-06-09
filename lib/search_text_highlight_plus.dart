@@ -63,7 +63,8 @@ class HighlightTextController extends TextEditingController {
 
     setHighlights(searchTerm: searchTerm, currentIndex: _currentIndex);
 
-    if (_currentIndex == -1 && _highlightsNotifier.value.isNotEmpty) {
+    final hasMatches = _highlightsNotifier.value.isNotEmpty;
+    if (_currentIndex == -1 && hasMatches) {
       _currentIndex = 0;
       _scrollToCurrent();
     }
