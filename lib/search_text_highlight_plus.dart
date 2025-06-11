@@ -123,22 +123,6 @@ class HighlightTextController extends TextEditingController {
     _highlightsNotifier.value = updatedHighlights;
   }
 
-  /// Scrolls to the current highlight.
-  void _scrollToCurrent() {
-    if (scrollController == null) {
-      return;
-    }
-
-    if (_currentIndex != -1 && _highlightsNotifier.value.isNotEmpty) {
-      final index = _highlightsNotifier.value[_currentIndex].start;
-      scrollController!.animateTo(
-        (index / text.length) * scrollController!.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
-
   /// Highlights the next occurrence of the search term.
   void highlightNext() => _maybeHighlightAtIndex(_currentIndex + 1);
 
@@ -158,7 +142,16 @@ class HighlightTextController extends TextEditingController {
     final length = _highlightsNotifier.value.length;
     _currentIndex = (index + length) % length;
     updateHighlightColor(_currentIndex);
-    _scrollToCurrent();
+    // Scroll to the current highlight.
+    if (scrollController == null) {
+      return;
+    }
+    final spanStartIx = _highlightsNotifier.value[_currentIndex].start;
+    scrollController!.animateTo(
+      (spanStartIx / text.length) * scrollController!.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   /// Clears all highlights.
