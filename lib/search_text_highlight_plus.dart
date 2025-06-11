@@ -54,7 +54,7 @@ class HighlightTextController extends TextEditingController {
   });
 
   /// Highlights the search term in the text.
-  void highlightSearchTerm(String searchTerm) {
+  void highlightSearchTerm(String searchTerm, {bool doScroll = true}) {
     if (searchTerm.isEmpty) {
       _clearHighlights();
       _currentIndex = -1;
@@ -68,10 +68,10 @@ class HighlightTextController extends TextEditingController {
       return;
     }
     if (_currentIndex == -1) {
-      _highlightAtIndex(0);
+      _highlightAtIndex(0, doScroll: doScroll);
     } else if (_currentIndex > lastIndex) {
       // Hopefully pick the nearest possible match
-      _highlightAtIndex(lastIndex);
+      _highlightAtIndex(lastIndex, doScroll: doScroll);
     }
   }
 
@@ -138,12 +138,12 @@ class HighlightTextController extends TextEditingController {
     _highlightAtIndex(index);
   }
 
-  void _highlightAtIndex(int index) {
+  void _highlightAtIndex(int index, {bool doScroll = true}) {
     final length = _highlightsNotifier.value.length;
     _currentIndex = (index + length) % length;
     updateHighlightColor(_currentIndex);
     // Scroll to the current highlight.
-    if (scrollController == null) {
+    if (scrollController == null || !doScroll) {
       return;
     }
     final spanStartIx = _highlightsNotifier.value[_currentIndex].start;
