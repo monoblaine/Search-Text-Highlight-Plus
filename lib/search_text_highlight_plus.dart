@@ -142,17 +142,21 @@ class HighlightTextController extends TextEditingController {
   }
 
   /// Highlights the next occurrence of the search term.
-  void highlightNext() => _highlightAtIndex(_currentIndex + 1);
+  void highlightNext() => _maybeHighlightAtIndex(_currentIndex + 1);
 
   /// Highlights the previous occurrence of the search term.
-  void highlightPrevious() => _highlightAtIndex(_currentIndex - 1);
+  void highlightPrevious() => _maybeHighlightAtIndex(_currentIndex - 1);
 
-  void _highlightAtIndex(int index) {
+  void _maybeHighlightAtIndex(int index) {
     final hasMatches = _highlightsNotifier.value.isNotEmpty;
     if (!hasMatches) {
       _currentIndex = -1;
       return;
     }
+    _highlightAtIndex(index);
+  }
+
+  void _highlightAtIndex(int index) {
     final length = _highlightsNotifier.value.length;
     _currentIndex = (index + length) % length;
     updateHighlightColor(_currentIndex);
