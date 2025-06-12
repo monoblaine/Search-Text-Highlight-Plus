@@ -54,11 +54,19 @@ class HighlightTextController extends TextEditingController {
   });
 
   /// Highlights the search term in the text.
-  void highlightSearchTerm(String searchTerm, {bool doScroll = true}) {
+  void highlightSearchTerm(
+    String searchTerm, {
+    bool doScroll = true,
+    int? currentIndex,
+  }) {
     if (searchTerm.isEmpty) {
       _clearHighlights();
       _currentIndex = -1;
       return;
+    }
+
+    if (currentIndex != null) {
+      _currentIndex = currentIndex;
     }
 
     setHighlights(searchTerm: searchTerm, currentIndex: _currentIndex);
@@ -72,6 +80,8 @@ class HighlightTextController extends TextEditingController {
     } else if (_currentIndex > lastIndex) {
       // Hopefully pick the nearest possible match
       _highlightAtIndex(lastIndex, doScroll: doScroll);
+    } else if (currentIndex != null) {
+      _highlightAtIndex(currentIndex, doScroll: doScroll);
     }
   }
 
