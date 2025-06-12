@@ -77,8 +77,29 @@ class HighlightTextController extends TextEditingController {
 
   /// Sets the highlights based on the search term.
   void setHighlights({required String searchTerm, required int currentIndex}) {
+    _highlightsNotifier.value = setHighlightsImpl(
+      searchTerm: searchTerm,
+      currentIndex: currentIndex,
+      fullText: text,
+      caseSensitive: caseSensitive,
+      selectedTextBackgroundColor: selectedTextBackgroundColor,
+      highlightTextBackgroundColor: highlightTextBackgroundColor,
+      selectedHighlightedTextStyle: selectedHighlightedTextStyle,
+      highlightedTextStyle: highlightedTextStyle,
+    );
+  }
+
+  static List<HighlightSpan> setHighlightsImpl({
+    required String searchTerm,
+    required int currentIndex,
+    required String fullText,
+    required bool caseSensitive,
+    Color selectedTextBackgroundColor = Colors.lightBlue,
+    Color highlightTextBackgroundColor = Colors.yellow,
+    TextStyle? selectedHighlightedTextStyle,
+    TextStyle? highlightedTextStyle,
+  }) {
     List<HighlightSpan> newHighlights = [];
-    String fullText = text;
 
     String pattern = RegExp.escape(searchTerm);
     List<RegExpMatch> matches = RegExp(pattern, caseSensitive: caseSensitive)
@@ -101,7 +122,7 @@ class HighlightTextController extends TextEditingController {
       );
     }
 
-    _highlightsNotifier.value = newHighlights;
+    return newHighlights;
   }
 
   /// Updates the highlight color for the current index.
@@ -165,9 +186,23 @@ class HighlightTextController extends TextEditingController {
     TextStyle? style,
     required bool withComposing,
   }) {
+    return buildTextSpanImpl(
+      context: context,
+      style: style,
+      fullText: value.text,
+      highlights: _highlightsNotifier.value,
+      normalTextStyle: normalTextStyle,
+    );
+  }
+
+  static TextSpan buildTextSpanImpl({
+    required BuildContext context,
+    TextStyle? style,
+    required String fullText,
+    required List<HighlightSpan> highlights,
+    TextStyle? normalTextStyle,
+  }) {
     List<TextSpan> children = [];
-    String fullText = value.text;
-    List<HighlightSpan> highlights = _highlightsNotifier.value;
 
     if (highlights.isEmpty) {
       children.add(TextSpan(text: fullText));
