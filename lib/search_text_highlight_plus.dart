@@ -94,6 +94,7 @@ class HighlightTextController extends TextEditingController {
     required int currentIndex,
     required String fullText,
     required bool caseSensitive,
+    bool unicode = false,
     Color selectedTextBackgroundColor = Colors.lightBlue,
     Color highlightTextBackgroundColor = Colors.yellow,
     TextStyle? selectedHighlightedTextStyle,
@@ -102,9 +103,11 @@ class HighlightTextController extends TextEditingController {
     List<HighlightSpan> newHighlights = [];
 
     String pattern = RegExp.escape(searchTerm);
-    List<RegExpMatch> matches = RegExp(pattern, caseSensitive: caseSensitive)
-        .allMatches(fullText)
-        .toList();
+    List<RegExpMatch> matches = RegExp(
+      pattern,
+      caseSensitive: caseSensitive,
+      unicode: unicode,
+    ).allMatches(fullText).toList();
 
     for (int i = 0; i < matches.length; i++) {
       RegExpMatch match = matches[i];
