@@ -26,6 +26,8 @@ class HighlightTextController extends TextEditingController {
   /// Whether the search term matching is case sensitive.
   final bool caseSensitive;
 
+  final bool useUnicodeRegExp;
+
   int _currentIndex = -1;
 
   /// A notifier for the list of highlight spans.
@@ -51,6 +53,7 @@ class HighlightTextController extends TextEditingController {
     this.highlightedTextStyle,
     this.normalTextStyle,
     this.caseSensitive = false,
+    this.useUnicodeRegExp = false,
   });
 
   /// Highlights the search term in the text.
@@ -92,6 +95,7 @@ class HighlightTextController extends TextEditingController {
       currentIndex: currentIndex,
       fullText: text,
       caseSensitive: caseSensitive,
+      unicode: useUnicodeRegExp,
       selectedTextBackgroundColor: selectedTextBackgroundColor,
       highlightTextBackgroundColor: highlightTextBackgroundColor,
       selectedHighlightedTextStyle: selectedHighlightedTextStyle,
@@ -104,7 +108,7 @@ class HighlightTextController extends TextEditingController {
     required int currentIndex,
     required String fullText,
     required bool caseSensitive,
-    bool unicode = false,
+    required bool unicode,
     Color selectedTextBackgroundColor = Colors.lightBlue,
     Color highlightTextBackgroundColor = Colors.yellow,
     TextStyle? selectedHighlightedTextStyle,
