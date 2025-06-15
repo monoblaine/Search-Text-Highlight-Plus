@@ -28,6 +28,8 @@ class HighlightTextController extends TextEditingController {
 
   final bool useUnicodeRegExp;
 
+  final bool useRegExpEscape;
+
   int _currentIndex = -1;
 
   /// A notifier for the list of highlight spans.
@@ -54,6 +56,7 @@ class HighlightTextController extends TextEditingController {
     this.normalTextStyle,
     this.caseSensitive = false,
     this.useUnicodeRegExp = false,
+    this.useRegExpEscape = true,
   });
 
   /// Highlights the search term in the text.
@@ -96,6 +99,7 @@ class HighlightTextController extends TextEditingController {
       fullText: text,
       caseSensitive: caseSensitive,
       unicode: useUnicodeRegExp,
+      useRegExpEscape: useRegExpEscape,
       selectedTextBackgroundColor: selectedTextBackgroundColor,
       highlightTextBackgroundColor: highlightTextBackgroundColor,
       selectedHighlightedTextStyle: selectedHighlightedTextStyle,
@@ -109,6 +113,7 @@ class HighlightTextController extends TextEditingController {
     required String fullText,
     required bool caseSensitive,
     required bool unicode,
+    required bool useRegExpEscape,
     Color selectedTextBackgroundColor = Colors.lightBlue,
     Color highlightTextBackgroundColor = Colors.yellow,
     TextStyle? selectedHighlightedTextStyle,
@@ -116,9 +121,8 @@ class HighlightTextController extends TextEditingController {
   }) {
     List<HighlightSpan> newHighlights = [];
 
-    String pattern = RegExp.escape(searchTerm);
     List<RegExpMatch> matches = RegExp(
-      pattern,
+      useRegExpEscape ? RegExp.escape(searchTerm) : searchTerm,
       caseSensitive: caseSensitive,
       unicode: unicode,
     ).allMatches(fullText).toList();
